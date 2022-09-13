@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import EarthquakeList from './components/EarthquakeList'
 import useEarthquake from "./hooks/useEarthquake"
-import './App.css';
+import './App.scss';
 
 function App() {
   const {earthquakes, fetch} = useEarthquake();
   const MINUTE_MS = 60000;
 
   useEffect(() => {
+    fetch();
     const interval = setInterval(() => {      
       fetch();
     }, MINUTE_MS);

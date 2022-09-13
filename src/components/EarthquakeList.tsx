@@ -18,7 +18,7 @@ export const EarthquakeItem: FC<{earthquake: Earthquake}> = ({ earthquake }) => 
 const EarthquakeList: FC<{earthquakes:Earthquake[]}> = (props) => {
   return (
       <ul>
-        {props.earthquakes.map((item: Earthquake) => (<EarthquakeItem earthquake={item}></EarthquakeItem>))}
+        {props.earthquakes.map((item: Earthquake) => (<EarthquakeItem key={item.id} earthquake={item}></EarthquakeItem>))}
       </ul>
   );
 }
