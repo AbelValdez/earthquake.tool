@@ -11,8 +11,7 @@ export enum UrlFilter {
     magnitude_1_5 = "1.0",    
 };
 
-const getEarthquakes = (filter = UrlFilter.all) => {
-    console.log("llamada al aPI");
+const getEarthquakes = (filter = UrlFilter.all) => {    
     const url = BASE_URL.replace("[FILTER]", filter);
     return axios.get<{features: Earthquake[]}>(url)
         .then(res => res.data.features);
