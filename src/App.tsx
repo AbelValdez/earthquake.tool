@@ -1,24 +1,32 @@
 import { useEffect } from 'react';
-import EarthquakeList from './components/EarthquakeList'
+import EarthquakeList from './components/EarthquakeList/EarthquakeList'
 import useEarthquake from "./hooks/useEarthquake"
 import './App.scss';
+import EarthquakeFilter from './components/EarthquakeFilter/EarthquakeFilter';
 
 function App() {
-  const {earthquakes, fetch} = useEarthquake();
+  const {state, fetch, changeFilter} = useEarthquake();
   const MINUTE_MS = 60000;
 
   useEffect(() => {
     fetch();
-    const interval = setInterval(() => {      
-      fetch();
+    const interval = setInterval(() => {
+     fetch();
     }, MINUTE_MS);
+
     return () => clearInterval(interval);
-  }, [])
+  }, [fetch])
 
   return (
+    
     <div className="App">
-      <EarthquakeList earthquakes={earthquakes}></EarthquakeList>      
-    </div>
+        <div className='header'>
+          <EarthquakeFilter selectedFilter={state.selectedFilter} onClick={changeFilter}></EarthquakeFilter>
+        </div>
+        <div className='body'>
+          <EarthquakeList earthquakes={state.earthquakes}></EarthquakeList>
+        </div>
+      </div>
   );
 }
 

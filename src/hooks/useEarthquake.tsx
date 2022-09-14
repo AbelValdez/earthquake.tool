@@ -1,33 +1,52 @@
-import { useReducer } from "react";
+import { useCallback, useReducer } from "react";
 import { Earthquake } from "../models/Earthquake";
-import getEarthquakes from "../services/EarthquakeService";
+import getEarthquakes, { UrlFilter } from "../services/EarthquakeService";
+
+interface EarthquakeState {
+    earthquakes: Array<Earthquake>;
+    selectedFilter: UrlFilter;
+}
 
 type EarthquakeReducerAction = {
     type: "fetch"
     payload: {earthquakes: Earthquake[]}
-} 
+} |
+{
+    type: "changeFilter"
+    payload: {selectedFilter: UrlFilter}
+}
 
-const INITIAL_STATE = Array<Earthquake>();
+const INITIAL_STATE = {
+    earthquakes: Array<Earthquake>(),
+    selectedFilter: UrlFilter.all
+} as EarthquakeState;
 
-const earthquakeReducer = (state:  Earthquake[], action: EarthquakeReducerAction) => {
+const earthquakeReducer = (state: EarthquakeState, action: EarthquakeReducerAction) => {
     switch(action.type) {
         case "fetch":
-            return action.payload.earthquakes;
+            return {...state, earthquakes: action.payload.earthquakes};
+        case "changeFilter":
+                return {...state, selectedFilter: action.payload.selectedFilter};
         default:
             return INITIAL_STATE;
     }
 }
 
 const useEarthquake = () => {
-    const [earthquakes, dispatch ] = useReducer(earthquakeReducer, INITIAL_STATE);
+    const [state, dispatch ] = useReducer(earthquakeReducer, INITIAL_STATE);
 
-    const fetch = () => getEarthquakes().then(res =>
+    const fetch = useCallback(() => getEarthquakes(state.selectedFilter).then(res =>
         dispatch({type: "fetch", payload: {earthquakes: res}}) 
-    );
+    ), [dispatch, state.selectedFilter]);
+
+    const changeFilter = useCallback((filter: UrlFilter) => 
+        dispatch({type: "changeFilter", payload: {selectedFilter: filter}}
+    ) , [dispatch]);
 
     return {
-        earthquakes,        
-        fetch
+        state,
+        fetch,
+        changeFilter
     }
 }
 

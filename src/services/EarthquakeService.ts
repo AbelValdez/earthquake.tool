@@ -8,10 +8,10 @@ export enum UrlFilter {
     significant = "significant",
     magnitude_4_5 = "4.5",
     magnitude_2_5 = "2.5",
-    magnitude_1_5 = "1.0",    
+    magnitude_1_0 = "1.0",    
 };
 
-const getEarthquakes = (filter = UrlFilter.all) => {    
+const getEarthquakes = (filter = UrlFilter.all) => {
     const url = BASE_URL.replace("[FILTER]", filter);
     return axios.get<{features: Earthquake[]}>(url)
         .then(res => res.data.features);
