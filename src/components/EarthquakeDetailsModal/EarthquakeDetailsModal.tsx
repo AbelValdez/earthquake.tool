@@ -10,8 +10,13 @@ const EarthquakeDetailsModal = (props: Props) => {
   const { id, onCloseModal } = props;
   const {state, fetchDetails} = useEarthquakeDetails();
 
+  if(!state?.earthquake){
+    return (<div>Loading...</div>)
+  }
+
   return (
     <>
+    
       <Modal show={!!id} onShow={()=>fetchDetails(id ?? "")} onHide={() => onCloseModal()}>
         <Modal.Header closeButton>
           <Modal.Title>{state?.earthquake?.properties?.place}</Modal.Title>

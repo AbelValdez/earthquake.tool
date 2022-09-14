@@ -1,19 +1,19 @@
 import { Earthquake } from "../models/Earthquake";
 
-type EarthquakeState = {
+type EarthquakeDetailsState = {
     earthquake: Earthquake;
 }
 
-type EarthquakeReducerAction = {
+type EarthquakeDetailsReducerAction = {
     type: "fetch"
     payload: {earthquake: Earthquake}
 }
 
 export const INITIAL_STATE = {
     earthquake: {}
-} as EarthquakeState;
+} as EarthquakeDetailsState;
 
-const earthquakeReducer = (state: EarthquakeState, action: EarthquakeReducerAction) => {
+const earthquakeDetailsReducer = (state: EarthquakeDetailsState, action: EarthquakeDetailsReducerAction) => {
     switch(action.type) {
         case "fetch":
             return {...state, earthquake: action.payload.earthquake};
@@ -22,4 +22,4 @@ const earthquakeReducer = (state: EarthquakeState, action: EarthquakeReducerActi
     }
 }
 
-export default earthquakeReducer;
+export default earthquakeDetailsReducer;
