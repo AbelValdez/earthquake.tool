@@ -43,7 +43,7 @@ const earthquakeReducer = (state: EarthquakeState, action: EarthquakeReducerActi
 const useEarthquake = () => {
     const [earthquakeState, dispatch ] = useReducer(earthquakeReducer, INITIAL_STATE);
 
-    const fetch = useCallback(() => getEarthquakes(earthquakeState.selectedFilter).then((res: Earthquake[]) =>
+    const fetchSummary = useCallback(() => getEarthquakes(earthquakeState.selectedFilter).then((res: Earthquake[]) =>
         dispatch({type: "fetch", payload: {earthquakes: res}}) 
     ), [dispatch, earthquakeState.selectedFilter]);
 
@@ -51,13 +51,13 @@ const useEarthquake = () => {
         dispatch({type: "changeFilter", payload: {selectedFilter: filter}}
     ) , [dispatch]);
 
-    const selectEarthquake = useCallback((id: string | null) => {
-        console.log("ID selected", id)
-        dispatch({type: "selectEarthquake", payload: {selectedEarthquakeId: id}}) } , [dispatch]);
+    const selectEarthquake = useCallback((id: string | null) =>         
+        dispatch({type: "selectEarthquake", payload: {selectedEarthquakeId: id}}
+    ), [dispatch]);
 
     return {
         earthquakeState,
-        fetch,
+        fetchSummary,
         changeFilter,
         selectEarthquake
     }

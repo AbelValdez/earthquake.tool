@@ -4,20 +4,19 @@ import useEarthquake from "./hooks/useEarthquake"
 import './App.scss';
 import EarthquakeFilter from './components/EarthquakeFilter/EarthquakeFilter';
 import EarthquakeDetailsModal from './components/EarthquakeDetailsModal/EarthquakeDetailsModal';
-import useEarthquakeDetails from './hooks/useEarthquakeDetails';
 
 function App() {
-  const {earthquakeState, fetch, changeFilter, selectEarthquake} = useEarthquake();  
+  const {earthquakeState, fetchSummary, changeFilter, selectEarthquake} = useEarthquake();  
   const MINUTE_MS = 60000;
 
   useEffect(() => {
-    fetch();
+    fetchSummary();
     const interval = setInterval(() => {
-     fetch();
+      fetchSummary();
     }, MINUTE_MS);
 
     return () => clearInterval(interval);
-  }, [fetch])
+  }, [fetchSummary])
 
   return (
     

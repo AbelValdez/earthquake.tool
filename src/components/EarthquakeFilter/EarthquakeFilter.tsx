@@ -1,7 +1,10 @@
-import { FC } from "react";
 import { UrlFilter } from "../../services/EarthquakeService";
 
-const EarthquakeFilter: FC<{selectedFilter: UrlFilter, onClick: (filter: UrlFilter) => void | null}> = (props) => {
+interface Props {
+    selectedFilter: UrlFilter;
+    onClick: (filter: UrlFilter) => void | null;
+}
+const EarthquakeFilter = (props: Props) => {
     const {selectedFilter, onClick} = props;
     return (
         <div className="btn-group" role="group">

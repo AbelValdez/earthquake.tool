@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { FC } from "react";
-import { getEarthquakeDetails } from '../../services/EarthquakeService';
 import useEarthquakeDetails from '../../hooks/useEarthquakeDetails';
 
-const EarthquakeDetailsModal: FC<{id: string | null, onCloseModal: () => void }> = (props) => {
+interface Props {
+    id: string | null;
+    onCloseModal: () => void;
+}
+const EarthquakeDetailsModal = (props: Props) => {
    
   const {state, fetchDetails} = useEarthquakeDetails();
 
@@ -12,7 +13,7 @@ const EarthquakeDetailsModal: FC<{id: string | null, onCloseModal: () => void }>
     <>
       <Modal show={!!props.id} onShow={()=>fetchDetails(props.id ?? "")} onHide={() => props.onCloseModal()}>
         <Modal.Header closeButton>
-          <Modal.Title>{state?.earthquake?.properties.place}</Modal.Title>
+          <Modal.Title>{state?.earthquake?.properties?.place}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           
