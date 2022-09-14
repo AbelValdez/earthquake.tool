@@ -1,28 +1,7 @@
 import { useCallback, useReducer } from "react";
 import { Earthquake } from "../models/Earthquake";
 import { getEarthquakeDetails } from "../services/EarthquakeService";
-
-interface EarthquakeState {
-    earthquake: Earthquake;
-}
-
-type EarthquakeReducerAction = {
-    type: "fetch"
-    payload: {earthquake: Earthquake}
-}
-
-const INITIAL_STATE = {
-    earthquake: {}
-} as EarthquakeState;
-
-const earthquakeReducer = (state: EarthquakeState, action: EarthquakeReducerAction) => {
-    switch(action.type) {
-        case "fetch":
-            return {...state, earthquake: action.payload.earthquake};
-       default: 
-            return INITIAL_STATE;
-    }
-}
+import earthquakeReducer, { INITIAL_STATE } from "../store/EarthquakeDetailsReducer";
 
 const useEarthquakeDetails = () => {
     const [state, dispatch ] = useReducer(earthquakeReducer, INITIAL_STATE);

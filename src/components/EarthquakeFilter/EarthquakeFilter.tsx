@@ -1,6 +1,6 @@
 import { UrlFilter } from "../../services/EarthquakeService";
 
-interface Props {
+type Props = {
     selectedFilter: UrlFilter;
     onClick: (filter: UrlFilter) => void | null;
 }

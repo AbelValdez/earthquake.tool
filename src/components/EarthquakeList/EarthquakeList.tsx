@@ -2,7 +2,7 @@ import { Earthquake } from '../../models/Earthquake';
 import GaugeChart from 'react-gauge-chart'
 import "./EarthquakeList.scss"
 
-interface ItemProps {
+type ItemProps = {
   earthquake: Earthquake;
   onClick: (id: string) => void | null;
 }
@@ -26,15 +26,16 @@ export const EarthquakeItem = (props: ItemProps) => {
   )
 }
 
-interface Props {
+type Props = {
   earthquakes:Earthquake[];
   onClick: (id: string) => void | null;
 }
 
 const EarthquakeList = (props: Props) => {
+  const { earthquakes, onClick } = props;
   return (
       <ul>
-        {props.earthquakes.map((item: Earthquake) => (<EarthquakeItem key={item.id} earthquake={item} onClick={(id: string) => props.onClick(id)}></EarthquakeItem>))}
+        {earthquakes.map((item: Earthquake) => (<EarthquakeItem key={item.id} earthquake={item} onClick={(id: string) => onClick(id)}></EarthquakeItem>))}
       </ul>
   );
 }
