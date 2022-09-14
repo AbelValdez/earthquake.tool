@@ -3,9 +3,11 @@ import EarthquakeList from './components/EarthquakeList/EarthquakeList'
 import useEarthquake from "./hooks/useEarthquake"
 import './App.scss';
 import EarthquakeFilter from './components/EarthquakeFilter/EarthquakeFilter';
+import EarthquakeDetailsModal from './components/EarthquakeDetailsModal/EarthquakeDetailsModal';
+import useEarthquakeDetails from './hooks/useEarthquakeDetails';
 
 function App() {
-  const {state, fetch, changeFilter} = useEarthquake();
+  const {earthquakeState, fetch, changeFilter, selectEarthquake} = useEarthquake();  
   const MINUTE_MS = 60000;
 
   useEffect(() => {
@@ -20,13 +22,19 @@ function App() {
   return (
     
     <div className="App">
+      <EarthquakeDetailsModal 
+        id={earthquakeState.selectedEarthquakeId} 
+        onCloseModal={() => selectEarthquake(null)}
+      />
+
         <div className='header'>
-          <EarthquakeFilter selectedFilter={state.selectedFilter} onClick={changeFilter}></EarthquakeFilter>
+          <EarthquakeFilter selectedFilter={earthquakeState.selectedFilter} onClick={changeFilter}/>
         </div>
         <div className='body'>
-          <EarthquakeList earthquakes={state.earthquakes}></EarthquakeList>
-        </div>
-      </div>
+          <EarthquakeList earthquakes={earthquakeState.earthquakes} onClick={selectEarthquake}/>
+        </div>       
+    </div>
+    
   );
 }
 
