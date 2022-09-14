@@ -1,6 +1,7 @@
 import { Earthquake } from '../../models/Earthquake';
 import GaugeChart from 'react-gauge-chart'
 import "./EarthquakeList.scss"
+import EarthquakeGauge from '../EarthquakeGauge/EarthquakeGauge';
 
 type ItemProps = {
   earthquake: Earthquake;
@@ -11,14 +12,8 @@ export const EarthquakeItem = (props: ItemProps) => {
   const {earthquake, onClick} = props;
   return (  
     <li onClick={() => onClick(earthquake.id)}>
-      
-      <GaugeChart id="gauge-chart" 
-        nrOfLevels={3} 
-        percent={(earthquake.properties.mag/5)}        
-        formatTextValue={ () => `${earthquake.properties.mag.toFixed(1)}`}
-        textColor={"#0000ff"}
-        needleColor={"#bbb"}
-        />        
+      <EarthquakeGauge magnitude={earthquake.properties.mag}></EarthquakeGauge>
+              
       <span>      
         {earthquake.properties.place}
       </span>
