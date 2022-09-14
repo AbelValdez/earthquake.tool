@@ -1,7 +1,7 @@
 import { Earthquake } from "../models/Earthquake";
 import { UrlFilter } from "../services/EarthquakeService";
 
-interface EarthquakeState {
+type EarthquakeState = {
     earthquakes: Array<Earthquake>;
     selectedFilter: UrlFilter;
     selectedEarthquakeId: string | null;
