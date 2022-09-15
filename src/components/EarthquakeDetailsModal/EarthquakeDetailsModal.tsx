@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { Table } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import useEarthquakeDetails from '../../hooks/useEarthquakeDetails';
@@ -8,6 +9,7 @@ type Props = {
 }
 
 const EarthquakeDetailsModal = (props: Props) => {
+
   const { id, onCloseModal } = props;
   const {state, fetchDetails} = useEarthquakeDetails();
   const properties = state?.earthquake?.properties;
@@ -36,7 +38,7 @@ const EarthquakeDetailsModal = (props: Props) => {
                     </tr>
                     <tr>
                         <td>Time</td>
-                        <td>{properties?.time}</td>
+                        <td>{moment.unix(properties?.time).format("hh:mm:ss")}</td>
                     </tr>
                     <tr>
                         <td>Status</td>

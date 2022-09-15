@@ -10,7 +10,7 @@ function App() {
   
   const MINUTE_MS = 60000;
 
-  useEffect(() => {
+  useEffect(() => {    
     fetchSummary();
     const interval = setInterval(() => {
       fetchSummary();

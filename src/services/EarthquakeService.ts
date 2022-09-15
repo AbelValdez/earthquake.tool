@@ -11,7 +11,7 @@ export enum UrlFilter {
     magnitude_1_0 = "1.0",
 };
 
-export const getEarthquakes = (filter = UrlFilter.all) => {    
+export const getEarthquakes = (filter = UrlFilter.all) => {
     return axios.get<{features: Earthquake[]}>(`${BASE_URL}/summary/${filter}_hour.geojson`)
         .then(res => res.data.features);
 }
