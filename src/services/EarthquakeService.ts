@@ -1,9 +1,7 @@
 import axios from "axios"
 import { Earthquake } from "../models/Earthquake";
 
-const BASE_SUMMARY_URL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/[FILTER]_hour.geojson";
-const BASE_DETAILS_URL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/[ID].geojson";
-
+const BASE_URL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0";
 
 export enum UrlFilter {
     all = "all",
@@ -13,15 +11,13 @@ export enum UrlFilter {
     magnitude_1_0 = "1.0",
 };
 
-export const getEarthquakes = (filter = UrlFilter.all) => {
-    const url = BASE_SUMMARY_URL.replace("[FILTER]", filter);
-    return axios.get<{features: Earthquake[]}>(url)
+export const getEarthquakes = (filter = UrlFilter.all) => {    
+    return axios.get<{features: Earthquake[]}>(`${BASE_URL}/summary/${filter}_hour.geojson`)
         .then(res => res.data.features);
 }
 
-export const getEarthquakeDetails = (id: string) => {
-    const url = BASE_DETAILS_URL.replace("[ID]", id);
-    return axios.get<{features: Earthquake}>(url)
+export const getEarthquakeDetails = (id: string) => {    
+    return axios.get<{features: Earthquake}>(`${BASE_URL}/detail/${id}.geojson`)
         .then(res => res.data as unknown as Earthquake);
 }
 
