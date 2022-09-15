@@ -1,7 +1,7 @@
 import { Earthquake } from '../../models/Earthquake';
-import GaugeChart from 'react-gauge-chart'
 import "./EarthquakeList.scss"
 import EarthquakeGauge from '../EarthquakeGauge/EarthquakeGauge';
+import { Card } from 'react-bootstrap';
 
 type ItemProps = {
   earthquake: Earthquake;
@@ -10,13 +10,18 @@ type ItemProps = {
 
 export const EarthquakeItem = (props: ItemProps) => {
   const {earthquake, onClick} = props;
-  return (  
+  return (
     <li onClick={() => onClick(earthquake.id)}>
-      <EarthquakeGauge magnitude={earthquake.properties.mag}></EarthquakeGauge>
-              
-      <span>      
-        {earthquake.properties.place}
-      </span>
+      <Card>
+        <Card.Body>
+          
+          <EarthquakeGauge magnitude={earthquake.properties.mag}></EarthquakeGauge>
+          
+          <Card.Title>
+            {earthquake.properties.place}
+          </Card.Title>          
+        </Card.Body>
+      </Card>
     </li>
   )
 }

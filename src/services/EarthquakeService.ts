@@ -10,7 +10,7 @@ export enum UrlFilter {
     significant = "significant",
     magnitude_4_5 = "4.5",
     magnitude_2_5 = "2.5",
-    magnitude_1_0 = "1.0",    
+    magnitude_1_0 = "1.0",
 };
 
 export const getEarthquakes = (filter = UrlFilter.all) => {
